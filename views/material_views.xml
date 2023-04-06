@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="material_list_action" model="ir.actions.act_window">
+    <field name="name">Material</field>
+    <field name="res_model">material.material</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        No material found. Let's create one!
+      </p>
+    </field>
+  </record>
+
+  <record id="material_tree_view" model="ir.ui.view">
+    <field name="name">material.tree.view</field>
+    <field name="model">material.material</field>
+    <field name="arch" type="xml">
+      <tree string="Material">
+        <field name="code"/>
+        <field name="name" readonly="1"/>
+        <field name="material_type" />
+        <field name="partner_id" />
+        <field name="buy_price"/>
+      </tree>
+    </field>
+  </record>
+
+  <record id="material_search_view" model="ir.ui.view">
+    <field name="name">material.search.view</field>
+    <field name="model">material.material</field>
+    <field name="arch" type="xml">
+      <search string="Material">
+        <field name="name" string="Material Name" filter_domain="[('name', 'ilike', self)]"/>
+        <field name="material_type" filter_domain="[('material_type', 'ilike', self)]"/>
+        <field name="partner_id" filter_domain="[('partner_id.name', 'ilike', self)]"/>
+      </search>
+    </field>
+  </record>
+
+  <menuitem id="main_material_menu" name="Material"/>
+  <menuitem id="material_menu" parent="main_material_menu" name="Material"/>
+  <menuitem id="materials_menu" name="Materials" parent="material_menu" action="material_list_action"/>
+</odoo>
